@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DDA72A8A2AC0B63E00439A54 /* SolitaireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA72A892AC0B63E00439A54 /* SolitaireApp.swift */; };
-		DDA72A8C2AC0B63E00439A54 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA72A8B2AC0B63E00439A54 /* ContentView.swift */; };
+		DDA72A8C2AC0B63E00439A54 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA72A8B2AC0B63E00439A54 /* GameView.swift */; };
 		DDA72A8E2AC0B63F00439A54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDA72A8D2AC0B63F00439A54 /* Assets.xcassets */; };
 		DDA72A912AC0B63F00439A54 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDA72A902AC0B63F00439A54 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -16,7 +16,7 @@
 /* Begin PBXFileReference section */
 		DDA72A862AC0B63E00439A54 /* Solitaire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Solitaire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA72A892AC0B63E00439A54 /* SolitaireApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolitaireApp.swift; sourceTree = "<group>"; };
-		DDA72A8B2AC0B63E00439A54 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DDA72A8B2AC0B63E00439A54 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		DDA72A8D2AC0B63F00439A54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DDA72A902AC0B63F00439A54 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,7 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				DDA72A892AC0B63E00439A54 /* SolitaireApp.swift */,
-				DDA72A8B2AC0B63E00439A54 /* ContentView.swift */,
+				DDA72A8B2AC0B63E00439A54 /* GameView.swift */,
 				DDA72A8D2AC0B63F00439A54 /* Assets.xcassets */,
 				DDA72A8F2AC0B63F00439A54 /* Preview Content */,
 			);
@@ -137,7 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDA72A8C2AC0B63E00439A54 /* ContentView.swift in Sources */,
+				DDA72A8C2AC0B63E00439A54 /* GameView.swift in Sources */,
 				DDA72A8A2AC0B63E00439A54 /* SolitaireApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
