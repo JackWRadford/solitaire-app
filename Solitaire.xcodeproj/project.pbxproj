@@ -55,9 +55,9 @@
 		DDA72A882AC0B63E00439A54 /* Solitaire */ = {
 			isa = PBXGroup;
 			children = (
+				DDA72A9C2AC1D8DA00439A54 /* Views */,
 				DDA72A992AC0EF9A00439A54 /* Models */,
 				DDA72A892AC0B63E00439A54 /* SolitaireApp.swift */,
-				DDA72A8B2AC0B63E00439A54 /* GameView.swift */,
 				DDA72A8D2AC0B63F00439A54 /* Assets.xcassets */,
 				DDA72A8F2AC0B63F00439A54 /* Preview Content */,
 			);
@@ -79,6 +79,14 @@
 				DDA72A9A2AC0EFA800439A54 /* Card.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		DDA72A9C2AC1D8DA00439A54 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DDA72A8B2AC0B63E00439A54 /* GameView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
