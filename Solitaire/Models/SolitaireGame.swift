@@ -59,55 +59,21 @@ struct SolitaireGame {
     
     mutating func moveSelected(cards: [Card], from source: Pile, to destination: Pile) {
         guard let bottomCard = cards.first else { return }
-        let onlyOneCard = cards.count == 1
+        var allowed = false
+        
         switch (source, destination) {
-        case (.talon, .tableau(let destinationColumn)):
-            if canMoveCardToTableau(bottomCard, column: destinationColumn) {
-                removeCardFromTalon(bottomCard)
-                addCardsToTableau([bottomCard], at: destinationColumn)
-            }
-        case (.talon, .foundation(let destinationSuit)):
-            if canMoveCardToFoundation(bottomCard, for: destinationSuit) {
-                removeCardFromTalon(bottomCard)
-                addCardToFoundation(bottomCard, at: destinationSuit)
-            }
-        case (.tableau(let sourceColumn), .tableau(let destinationColumn)):
-            if canMoveCardToTableau(bottomCard, column: destinationColumn) {
-                removeCardsFromTableau(cards, at: sourceColumn)
-                addCardsToTableau(cards, at: destinationColumn)
-            }
-        case (.tableau(let sourceColumn), .foundation(let destinationSuit)):
-            guard onlyOneCard else { return }
-            if canMoveCardToFoundation(bottomCard, for: destinationSuit) {
-                removeCardsFromTableau([bottomCard], at: sourceColumn)
-                addCardToFoundation(bottomCard, at: destinationSuit)
-            }
-        case (.foundation(let sourceSuit), .tableau(let destinationColumn)):
-            guard onlyOneCard else { return }
-            if canMoveCardToTableau(bottomCard, column: destinationColumn) {
-                foundations[sourceSuit]?.removeAll { $0.id == bottomCard.id }
-                addCardsToTableau([bottomCard], at: destinationColumn)
-            }
+        case (.tableau, .tableau(let column)), (.talon, .tableau(let column)), (.foundation, .tableau(let column)):
+            allowed = canMoveCardToTableau(bottomCard, column: column)
+        case (.tableau, .foundation(let suit)), (.talon, .foundation(let suit)):
+            guard cards.onlyOne else { return }
+            allowed = canMoveCardToFoundation(bottomCard, for: suit)
         default:
             break
         }
-    }
-    
-    private mutating func removeCardFromTalon(_ card: Card) {
-        talon.removeAll { $0.id == card.id }
-    }
-    
-    private mutating func removeCardsFromTableau(_ cards: [Card], at column: Int) {
-        let sourceColumnCards = tableau[column]
-        tableau[column] = sourceColumnCards.filter { !cards.contains($0) }
-    }
-    
-    private mutating func addCardsToTableau(_ cards: [Card], at column: Int) {
-        tableau[column].append(contentsOf: cards)
-    }
-    
-    private mutating func addCardToFoundation(_ card: Card, at suit: Suit) {
-        foundations[suit]?.append(card)
+        
+        if allowed {
+            moveCards(cards, from: source, to: destination)
+        }
     }
     
     private func canMoveCardToTableau(_ card: Card, column: Int) -> Bool {
@@ -128,11 +94,54 @@ struct SolitaireGame {
         }
     }
     
+    private mutating func moveCards(_ cards: [Card], from source: Pile, to destination: Pile) {
+        removeCardsFromPile(cards, pile: source)
+        addCardsToPile(cards, pile: destination)
+    }
+    
+    private mutating func removeCardsFromPile(_ cards: [Card], pile: Pile) {
+        switch pile {
+        case .talon:
+            guard cards.onlyOne else { return }
+            talon.removeAll { $0.id == cards[0].id }
+        case .foundation(let suit):
+            guard cards.onlyOne else { return }
+            foundations[suit]?.removeAll { $0.id == cards[0].id}
+        case .tableau(let column):
+            let sourceColumnCards = tableau[column]
+            tableau[column] = sourceColumnCards.filter { !cards.contains($0) }
+        case .stock:
+            let stockCards = stock
+            stock = stockCards.filter { !cards.contains($0) }
+        }
+    }
+    
+    private mutating func addCardsToPile(_ cards: [Card], pile: Pile) {
+        switch pile {
+        case .talon:
+            talon.append(contentsOf: cards)
+        case .tableau(let column):
+            tableau[column].append(contentsOf: cards)
+        case .foundation(let suit):
+            foundations[suit]?.append(contentsOf: cards)
+        case .stock:
+            let stockCards = stock
+            stock = stockCards.filter { !cards.contains($0) }
+        }
+    }
+    
     func isComplete() -> Bool {
         for suit in Suit.allCases {
             guard let foundation = foundations[suit] else { return false }
             return foundation.count == 13
         }
         return false
+    }
+}
+
+extension Array {
+    /// Returns true if there is only one element
+    var onlyOne: Bool {
+        self.count == 1
     }
 }
