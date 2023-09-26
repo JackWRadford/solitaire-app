@@ -1,5 +1,5 @@
 //
-//  SolitaireGame.swift
+//  Game.swift
 //  Solitaire
 //
 //  Created by Jack Radford on 24/09/2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SolitaireGame {
+struct Game {
     typealias Suit = Card.Suit
     
     private(set) var stock: [Card] = []

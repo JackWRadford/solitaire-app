@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension SolitaireGame {
+extension Game {
     struct Card: Equatable {
         let id: UUID
         let rank: Rank
