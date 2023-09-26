@@ -11,6 +11,7 @@ struct GameView: View {
     
     var body: some View {
         VStack {
+            Spacer()
             HStack(alignment: .top) {
                 ForEach(Array(0..<Game.tableauColumnCount), id: \.self) { index in
                     VStack {
@@ -20,8 +21,10 @@ struct GameView: View {
                     }
                 }
             }
+            Spacer()
         }
         .padding()
+        .background(.quaternary)
     }
 }
 

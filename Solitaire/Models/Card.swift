@@ -48,5 +48,20 @@ struct Card: Equatable {
         case jack = 11
         case queen = 12
         case king = 13
+        
+        func label() -> String {
+            switch self {
+            case .ace:
+                return "A"
+            case .jack:
+                return "J"
+            case .queen:
+                return "Q"
+            case .king:
+                return "K"
+            default:
+                return String(self.rawValue)
+            }
+        }
     }
 }

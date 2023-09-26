@@ -14,7 +14,8 @@ struct CardView: View {
         static let aspectRatio: CGFloat = 2/3
         static let cornerRadius: CGFloat = 8
         static let lineWidth: CGFloat = 4
-        static let backColor: Color = .blue
+        static let backColor: some ShapeStyle = .blue
+        static let faceColor: some ShapeStyle = .background
     }
     
     let card: Card
@@ -39,10 +40,10 @@ struct CardView: View {
     }
     
     var face: some View {
-        base.fill(.quaternary)
+        base.fill(Constants.faceColor)
             .overlay {
                 VStack {
-                    Text("\(card.rank.rawValue)")
+                    Text("\(card.rank.label())")
                     suitImage(for: card.suit)
                 }
                 .font(.headline)
@@ -56,7 +57,7 @@ struct CardView: View {
     }
     
     func suitColor(for suit: Suit) -> Color {
-        suit.color == .red ? .red : .black
+        suit.color == .red ? .red : .primary
     }
     
     func suitImage(for suit: Suit) -> Image {
