@@ -7,20 +7,20 @@
 import SwiftUI
 
 struct GameView: View {
+    @EnvironmentObject var gameVM: GameViewModel
+    
     var body: some View {
-        HStack {
-            Image(systemName: "suit.spade.fill")
-            Image(systemName: "suit.club.fill")
-            Image(systemName: "suit.diamond.fill")
-            Image(systemName: "suit.heart.fill")
+        VStack {
+            HStack {
+                
+            }
         }
-        .imageScale(.large)
-        .padding()
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         GameView()
+            .environmentObject(GameViewModel(game: Game()))
     }
 }
