@@ -11,7 +11,7 @@ struct Card: Equatable {
     let id: UUID
     let rank: Rank
     let suit: Suit
-    var isFaceUp = true
+    var isFaceUp = false
     
     static func == (lhs: Card, rhs: Card) -> Bool {
         return lhs.id == rhs.id
