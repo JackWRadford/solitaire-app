@@ -11,7 +11,7 @@ struct SolitaireGame {
     typealias Suit = Card.Suit
     
     private(set) var stock: [Card] = []
-    private(set) var waste: [Card] = []
+    private(set) var talon: [Card] = []
     private(set) var tableau: [[Card]] = Array(repeating: [], count: 7)
     private(set) var foundations: [Suit: [Card]] = [
         .spade: [],
@@ -54,21 +54,21 @@ struct SolitaireGame {
         case tableau(column: Int)
         case foundation(suit: Card.Suit)
         case stock
-        case waste
+        case talon
     }
     
     mutating func moveSelected(cards: [Card], from source: Pile, to destination: Pile) {
         guard let bottomCard = cards.first else { return }
         let onlyOneCard = cards.count == 1
         switch (source, destination) {
-        case (.waste, .tableau(let destinationColumn)):
+        case (.talon, .tableau(let destinationColumn)):
             if canMoveCardToTableau(bottomCard, column: destinationColumn) {
-                removeCardFromWaste(bottomCard)
+                removeCardFromTalon(bottomCard)
                 addCardsToTableau([bottomCard], at: destinationColumn)
             }
-        case (.waste, .foundation(let destinationSuit)):
+        case (.talon, .foundation(let destinationSuit)):
             if canMoveCardToFoundation(bottomCard, for: destinationSuit) {
-                removeCardFromWaste(bottomCard)
+                removeCardFromTalon(bottomCard)
                 addCardToFoundation(bottomCard, at: destinationSuit)
             }
         case (.tableau(let sourceColumn), .tableau(let destinationColumn)):
@@ -93,8 +93,8 @@ struct SolitaireGame {
         }
     }
     
-    private mutating func removeCardFromWaste(_ card: Card) {
-        waste.removeAll { $0.id == card.id }
+    private mutating func removeCardFromTalon(_ card: Card) {
+        talon.removeAll { $0.id == card.id }
     }
     
     private mutating func removeCardsFromTableau(_ cards: [Card], at column: Int) {
