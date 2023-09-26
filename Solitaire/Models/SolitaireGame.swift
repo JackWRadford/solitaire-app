@@ -53,7 +53,6 @@ struct SolitaireGame {
     enum Pile {
         case tableau(column: Int)
         case foundation(suit: Card.Suit)
-        case stock
         case talon
     }
     
@@ -61,10 +60,10 @@ struct SolitaireGame {
         guard let bottomCard = cards.first else { return }
         var allowed = false
         
-        switch (source, destination) {
-        case (.tableau, .tableau(let column)), (.talon, .tableau(let column)), (.foundation, .tableau(let column)):
+        switch destination {
+        case .tableau(let column):
             allowed = canMoveCardToTableau(bottomCard, column: column)
-        case (.tableau, .foundation(let suit)), (.talon, .foundation(let suit)):
+        case .foundation(let suit):
             guard cards.onlyOne else { return }
             allowed = canMoveCardToFoundation(bottomCard, for: suit)
         default:
@@ -110,9 +109,6 @@ struct SolitaireGame {
         case .tableau(let column):
             let sourceColumnCards = tableau[column]
             tableau[column] = sourceColumnCards.filter { !cards.contains($0) }
-        case .stock:
-            let stockCards = stock
-            stock = stockCards.filter { !cards.contains($0) }
         }
     }
     
@@ -124,9 +120,6 @@ struct SolitaireGame {
             tableau[column].append(contentsOf: cards)
         case .foundation(let suit):
             foundations[suit]?.append(contentsOf: cards)
-        case .stock:
-            let stockCards = stock
-            stock = stockCards.filter { !cards.contains($0) }
         }
     }
     
