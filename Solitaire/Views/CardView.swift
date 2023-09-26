@@ -10,6 +10,13 @@ import SwiftUI
 struct CardView: View {
     typealias Suit = Card.Suit
     
+    private struct Constants {
+        static let aspectRatio: CGFloat = 2/3
+        static let cornerRadius: CGFloat = 8
+        static let lineWidth: CGFloat = 4
+        static let backColor: Color = .blue
+    }
+    
     let card: Card
     
     init(_ card: Card) {
@@ -24,11 +31,11 @@ struct CardView: View {
                 back
             }
         }
-        .aspectRatio(2/3, contentMode: .fit)
+        .aspectRatio(Constants.aspectRatio, contentMode: .fit)
     }
     
     var base: some Shape {
-        RoundedRectangle(cornerRadius: 8)
+        RoundedRectangle(cornerRadius: Constants.cornerRadius)
     }
     
     var face: some View {
@@ -36,18 +43,23 @@ struct CardView: View {
             .overlay {
                 VStack {
                     Text("\(card.rank.rawValue)")
-                    getSuitImage(for: card.suit)
+                    suitImage(for: card.suit)
                 }
                 .font(.headline)
+                .foregroundColor(suitColor(for: card.suit))
             }
     }
     
     var back: some View {
-        base.stroke(.thinMaterial, lineWidth: 4)
-            .background(base.fill(.blue))
+        base.stroke(.thinMaterial, lineWidth: Constants.lineWidth)
+            .background(base.fill(Constants.backColor))
     }
     
-    func getSuitImage(for suit: Suit) -> Image {
+    func suitColor(for suit: Suit) -> Color {
+        suit.color == .red ? .red : .black
+    }
+    
+    func suitImage(for suit: Suit) -> Image {
         var systemName = "questionmark.circle.fill"
         
         switch suit {

@@ -11,7 +11,7 @@ struct Card: Equatable {
     let id: UUID
     let rank: Rank
     let suit: Suit
-    var isFaceUp = false
+    var isFaceUp = true
     
     static func == (lhs: Card, rhs: Card) -> Bool {
         return lhs.id == rhs.id
@@ -19,13 +19,17 @@ struct Card: Equatable {
     
     enum Suit: CaseIterable {
         case spade, club, diamond, heart
+       
+        enum SuitColor {
+            case red, black
+        }
         
-        var color: String {
+        var color: SuitColor {
             switch self {
             case .club, .spade:
-                return "black"
+                return .black
             case .diamond, .heart:
-                return "red"
+                return .red
             }
         }
     }

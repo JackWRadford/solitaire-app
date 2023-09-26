@@ -9,10 +9,11 @@ import Foundation
 
 struct Game {
     typealias Suit = Card.Suit
+    static let tableauColumnCount = 7
     
     private(set) var stock: [Card] = []
     private(set) var talon: [Card] = []
-    private(set) var tableau: [[Card]] = Array(repeating: [], count: 7)
+    private(set) var tableau: [[Card]] = Array(repeating: [], count: tableauColumnCount)
     private(set) var foundations: [Suit: [Card]] = [
         .spade: [],
         .club: [],
@@ -41,7 +42,7 @@ struct Game {
     }
     
     private mutating func dealTableau() {
-        for column in 0..<7 {
+        for column in 0..<Self.tableauColumnCount {
             for _ in 0...column {
                 if let card = stock.popLast() {
                     tableau[column].append(card)

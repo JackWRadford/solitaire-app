@@ -11,10 +11,17 @@ struct GameView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                
+            HStack(alignment: .top) {
+                ForEach(Array(0..<Game.tableauColumnCount), id: \.self) { index in
+                    VStack {
+                        ForEach(gameVM.game.tableau[index], id: \.id) { card in
+                            CardView(card)
+                        }
+                    }
+                }
             }
         }
+        .padding()
     }
 }
 
