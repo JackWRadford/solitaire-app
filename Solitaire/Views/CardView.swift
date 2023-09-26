@@ -67,10 +67,9 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(Card(
-            id: UUID(),
-            rank: .five,
-            suit: .spade)
-        )
+        let gameVm = GameViewModel(Game())
+        CardView(gameVm.game.stock[0])
+        .frame(maxWidth: 200)
+        .environmentObject(gameVm)
     }
 }

@@ -21,6 +21,6 @@ struct GameView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         GameView()
-            .environmentObject(GameViewModel(game: Game()))
+            .environmentObject(GameViewModel(Game()))
     }
 }

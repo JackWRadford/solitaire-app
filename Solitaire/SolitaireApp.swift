@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct SolitaireApp: App {
-    @StateObject var gameVM = GameViewModel(game: Game())
+    @StateObject var gameVM = GameViewModel(Game())
     
     var body: some Scene {
         WindowGroup {

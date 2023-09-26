@@ -10,7 +10,7 @@ import Foundation
 class GameViewModel: ObservableObject {
     private(set) var game: Game
     
-    init(game: Game) {
+    init(_ game: Game) {
         self.game = game
     }
 }
