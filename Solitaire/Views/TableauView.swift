@@ -11,12 +11,16 @@ struct TableauView: View {
     @EnvironmentObject var gameVM: GameViewModel
     
     var body: some View {
-        HStack(alignment: .top) {
+        
+        let yOffset: CGFloat = -60
+        let columnSpacing: CGFloat = 10
+        
+        HStack(alignment: .top, spacing: columnSpacing) {
             ForEach(Array(0..<Game.tableauColumnCount), id: \.self) { index in
                 VStack {
                     ForEach(Array(gameVM.game.tableau[index].enumerated()), id: \.1.id) { index, card in
                         CardView(card)
-                            .offset(x: 0, y: -60 * CGFloat(index))
+                            .offset(x: 0, y: yOffset * CGFloat(index))
                     }
                 }
             }
@@ -27,7 +31,8 @@ struct TableauView: View {
 struct TableauView_Previews: PreviewProvider {
     static var previews: some View {
         TableauView()
-            .environmentObject(GameViewModel(Game()))
+            .background(.quaternary)
             .padding()
+            .environmentObject(GameViewModel(Game()))
     }
 }

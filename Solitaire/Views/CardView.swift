@@ -14,7 +14,9 @@ struct CardView: View {
         static let aspectRatio: CGFloat = 2/3
         static let cornerRadius: CGFloat = 8
         static let lineWidth: CGFloat = 4
-        static let backColor: some ShapeStyle = .blue
+        static let shadowRadius: CGFloat = 2
+        static let frontHeaderPadding: CGFloat = 2
+        static let backColor: some ShapeStyle = .red
         static let faceColor: some ShapeStyle = .background
     }
     
@@ -40,13 +42,18 @@ struct CardView: View {
     }
     
     var face: some View {
-        base.fill(Constants.faceColor)
+        base.stroke(Constants.faceColor, lineWidth: Constants.lineWidth)
+            .background(base.fill(Constants.faceColor).shadow(radius: Constants.shadowRadius, x: 0, y: -1))
             .overlay {
-                VStack {
-                    Text("\(card.rank.label())")
-                    suitImage(for: card.suit)
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("\(card.rank.label())").bold()
+                        Spacer()
+                        suitImage(for: card.suit).font(.caption)
+                    }
+                    .padding(.horizontal, Constants.frontHeaderPadding)
+                    Spacer()
                 }
-                .font(.headline)
                 .foregroundColor(suitColor(for: card.suit))
             }
     }
@@ -82,7 +89,7 @@ struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         let gameVm = GameViewModel(Game())
         CardView(gameVm.game.stock[0])
-        .frame(maxWidth: 200)
-        .environmentObject(gameVm)
+            .frame(maxWidth: 200)
+            .environmentObject(gameVm)
     }
 }

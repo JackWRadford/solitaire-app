@@ -41,11 +41,15 @@ struct Game {
         stock = deck
     }
     
+    /// Deals top cards face up
     private mutating func dealTableau() {
         for column in 0..<Self.tableauColumnCount {
-            for _ in 0...column {
+            for index in 0...column {
                 if let card = stock.popLast() {
                     tableau[column].append(card)
+                    if index == column {
+                        tableau[column][index].isFaceUp = true
+                    }
                 }
             }
         }
