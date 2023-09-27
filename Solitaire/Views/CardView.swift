@@ -14,8 +14,9 @@ struct CardView: View {
         static let aspectRatio: CGFloat = 2/3
         static let cornerRadius: CGFloat = 8
         static let lineWidth: CGFloat = 4
-        static let shadowRadius: CGFloat = 2
-        static let frontHeaderPadding: CGFloat = 2
+        static let shadowRadius: CGFloat = 1
+        static let frontHeaderHorizontalPadding: CGFloat = 4
+        static let frontHeaderTopPadding: CGFloat = 1
         static let backColor: some ShapeStyle = .red
         static let faceColor: some ShapeStyle = .background
     }
@@ -37,21 +38,22 @@ struct CardView: View {
         .aspectRatio(Constants.aspectRatio, contentMode: .fit)
     }
     
-    var base: some Shape {
+    var base: some InsettableShape {
         RoundedRectangle(cornerRadius: Constants.cornerRadius)
     }
     
     var face: some View {
-        base.stroke(Constants.faceColor, lineWidth: Constants.lineWidth)
-            .background(base.fill(Constants.faceColor).shadow(radius: Constants.shadowRadius, x: 0, y: -1))
+        base.strokeBorder(Constants.faceColor, lineWidth: Constants.lineWidth)
+            .background(base.fill(Constants.faceColor).shadow(radius: Constants.shadowRadius))
             .overlay {
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("\(card.rank.label())").bold()
+                        Text("\(card.rank.label())").font(.subheadline).bold()
                         Spacer()
                         suitImage(for: card.suit).font(.caption)
                     }
-                    .padding(.horizontal, Constants.frontHeaderPadding)
+                    .padding(.horizontal, Constants.frontHeaderHorizontalPadding)
+                    .padding(.top, Constants.frontHeaderTopPadding)
                     Spacer()
                 }
                 .foregroundColor(suitColor(for: card.suit))
@@ -59,8 +61,8 @@ struct CardView: View {
     }
     
     var back: some View {
-        base.stroke(.thinMaterial, lineWidth: Constants.lineWidth)
-            .background(base.fill(Constants.backColor))
+        base.strokeBorder(.thinMaterial, lineWidth: Constants.lineWidth)
+            .background(base.fill(Constants.backColor).shadow(radius: Constants.shadowRadius))
     }
     
     func suitColor(for suit: Suit) -> Color {

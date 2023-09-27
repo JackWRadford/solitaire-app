@@ -8,11 +8,15 @@ import SwiftUI
 
 struct GameView: View {
     @EnvironmentObject var gameVM: GameViewModel
+    @State var cardWidth: CGFloat = .zero
     
     var body: some View {
         VStack {
-            Spacer()
-            TableauView()
+            HStack {
+                Spacer()
+                DeckView(cardWidth: cardWidth)
+            }
+            TableauView(cardWidth: $cardWidth)
             Spacer()
         }
         .padding()
