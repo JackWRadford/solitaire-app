@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Equatable {
+struct Card: Equatable, Identifiable {
     let id: UUID
     let rank: Rank
     let suit: Suit

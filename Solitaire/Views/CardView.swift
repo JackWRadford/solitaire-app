@@ -10,21 +10,27 @@ import SwiftUI
 struct CardView: View {
     typealias Suit = Card.Suit
     
+    let card: Card
+    let hasShadow: Bool
+    
+    init(_ card: Card, hasShadow: Bool = true) {
+        self.card = card
+        self.hasShadow = hasShadow
+    }
+    
     private struct Constants {
         static let aspectRatio: CGFloat = 2/3
-        static let cornerRadius: CGFloat = 8
         static let lineWidth: CGFloat = 4
         static let shadowRadius: CGFloat = 1
+        static let cornerRadius: CGFloat = 8
         static let frontHeaderHorizontalPadding: CGFloat = 4
         static let frontHeaderTopPadding: CGFloat = 1
-        static let backColor: some ShapeStyle = .red
+        static let backColor: some ShapeStyle = .foreground
         static let faceColor: some ShapeStyle = .background
     }
     
-    let card: Card
-    
-    init(_ card: Card) {
-        self.card = card
+    private var shadowRadius: CGFloat {
+        hasShadow ? Constants.shadowRadius : 0
     }
     
     var body: some View {
@@ -44,7 +50,7 @@ struct CardView: View {
     
     var face: some View {
         base.strokeBorder(Constants.faceColor, lineWidth: Constants.lineWidth)
-            .background(base.fill(Constants.faceColor).shadow(radius: Constants.shadowRadius))
+            .background(base.fill(Constants.faceColor).shadow(radius: shadowRadius))
             .overlay {
                 VStack(alignment: .leading) {
                     HStack {
@@ -62,7 +68,7 @@ struct CardView: View {
     
     var back: some View {
         base.strokeBorder(.thinMaterial, lineWidth: Constants.lineWidth)
-            .background(base.fill(Constants.backColor).shadow(radius: Constants.shadowRadius))
+            .background(base.fill(Constants.backColor).shadow(radius: shadowRadius))
     }
     
     func suitColor(for suit: Suit) -> Color {

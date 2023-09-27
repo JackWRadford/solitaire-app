@@ -11,11 +11,16 @@ struct DeckView: View {
     @EnvironmentObject var gameVM: GameViewModel
     let cardWidth: CGFloat
     
+    private var yOffsetConstant: CGFloat { -(cardWidth * 0.01) }
+    
     var body: some View {
-        if let lastCard = gameVM.game.stock.last {
-            CardView(lastCard)
-                .frame(width: cardWidth)
+        ZStack {
+            ForEach(Array(gameVM.game.stock.enumerated()), id: \.1.id) { index, card in
+                CardView(card, hasShadow: false)
+                    .offset(x: 0, y: yOffsetConstant * CGFloat(index))
+            }
         }
+        .frame(width: cardWidth)
     }
 }
 
