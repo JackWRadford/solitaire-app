@@ -11,9 +11,9 @@ struct TableauView: View {
     @EnvironmentObject var gameVM: GameViewModel
     @Binding var cardWidth: CGFloat
     
-    private let yOffset: CGFloat = -60
     private let columnSpacing: CGFloat = 5
     private let columnCount = Game.tableauColumnCount
+    private var yOffsetConstant: CGFloat { -(cardWidth * 1.2) }
     
     var body: some View {
         GeometryReader { geometry in
@@ -22,7 +22,7 @@ struct TableauView: View {
                     VStack {
                         ForEach(Array(gameVM.game.tableau[index].enumerated()), id: \.1.id) { index, card in
                             CardView(card)
-                                .offset(x: 0, y: yOffset * CGFloat(index))
+                                .offset(x: 0, y: yOffsetConstant * CGFloat(index))
                         }
                     }
                 }
