@@ -17,9 +17,11 @@ struct Card: Equatable, Identifiable {
         return lhs.id == rhs.id
     }
     
-    enum Suit: CaseIterable {
+    enum Suit: String, CaseIterable, Identifiable {
         case spade, club, diamond, heart
-       
+        
+        var id: String { self.rawValue }
+        
         enum SuitColor {
             case red, black
         }
@@ -31,6 +33,20 @@ struct Card: Equatable, Identifiable {
             case .diamond, .heart:
                 return .red
             }
+        }
+        
+        var image: String {
+            switch self {
+            case .club:
+                return "suit.club.fill"
+            case .spade:
+                return "suit.spade.fill"
+            case .diamond:
+                return "suit.diamond.fill"
+            case .heart:
+                return "suit.heart.fill"
+            }
+            
         }
     }
     

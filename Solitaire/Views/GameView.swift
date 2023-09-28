@@ -11,8 +11,9 @@ struct GameView: View {
     @State var cardWidth: CGFloat = .zero
     
     var body: some View {
-        VStack {
+        VStack(spacing: 24) {
             HStack {
+                FoundationsView(cardWidth: cardWidth)
                 Spacer()
                 DeckView(cardWidth: cardWidth)
             }

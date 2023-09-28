@@ -11,13 +11,13 @@ struct TableauView: View {
     @EnvironmentObject var gameVM: GameViewModel
     @Binding var cardWidth: CGFloat
     
-    private let columnSpacing: CGFloat = 5
+    static let columnSpacing: CGFloat = 5
     private let columnCount = Game.tableauColumnCount
     private var yOffsetConstant: CGFloat { -(cardWidth * 1.2) }
     
     var body: some View {
         GeometryReader { geometry in
-            HStack(alignment: .top, spacing: columnSpacing) {
+            HStack(alignment: .top, spacing: Self.columnSpacing) {
                 ForEach(Array(0..<columnCount), id: \.self) { index in
                     VStack {
                         ForEach(Array(gameVM.game.tableau[index].enumerated()), id: \.1.id) { index, card in
@@ -28,7 +28,7 @@ struct TableauView: View {
                 }
             }
             .onAppear {
-                let totalSpacingWidth = columnSpacing * CGFloat(columnCount - 1)
+                let totalSpacingWidth = Self.columnSpacing * CGFloat(columnCount - 1)
                 cardWidth = (geometry.size.width - totalSpacingWidth) / CGFloat(columnCount)
             }
         }
