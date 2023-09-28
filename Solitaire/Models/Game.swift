@@ -25,7 +25,7 @@ struct Game {
         initializeGame()
     }
     
-    mutating func initializeGame() {
+    private mutating func initializeGame() {
         initializeDeck()
         dealTableau()
     }
@@ -84,29 +84,79 @@ struct Game {
         }
     }
     
+    /// Move the `card` (and any child cards if in the Tableau)
+    mutating func autoMove(_ card: Card) -> Bool {
+        if let (pile, _) = findCard(card) {
+            for suit in Suit.allCases {
+                if moveSelected(cards: [card], from: pile, to: .foundation(suit: suit)) { return true }
+            }
+            for column in 0..<tableau.count {
+                if moveSelected(cards: [card], from: pile, to: .tableau(column: column)) { return true }
+            }
+        } else {
+            // Could not find card
+        }
+        return false
+    }
+    
+    /// Finds the `card`'s Pile and index in that pile
+    private func findCard(_ card: Card) -> (pile:Pile, index: Int)? {
+        if let (tableauColumn, tableauIndex) = findCardInTableau(card) {
+            return (.tableau(column: tableauColumn), tableauIndex)
+        } else if let foundationIndex = findCardInFoundations(card) {
+            return (.foundation(suit: card.suit), foundationIndex)
+        } else if let topTalonCard = talon.last {
+            if topTalonCard.id == card.id {
+                return (.talon, talon.count - 1)
+            }
+        }
+        return nil
+    }
+    
+    /// Returns the index of the `card` if it is found, otherwise returns nil
+    private func findCardInFoundations(_ card: Card) -> Int? {
+        guard let foundationCards = foundations[card.suit] else { return nil }
+        if let topCard = foundationCards.last {
+            return topCard.id == card.id ? foundationCards.count - 1 : nil
+        }
+        return nil
+    }
+    
+    /// Returns the `column` index and inner `index` of the `card` if it is found, otherwise returns nil
+    private func findCardInTableau(_ card: Card) -> (column: Int, index: Int)? {
+        for columnIndex in 0..<tableau.count {
+            let index = tableau[columnIndex].firstIndex { $0.id == card.id }
+            if let index {
+                return (columnIndex, index)
+            }
+        }
+        return nil
+    }
+    
     enum Pile {
         case tableau(column: Int)
         case foundation(suit: Card.Suit)
         case talon
     }
     
-    mutating func moveSelected(cards: [Card], from source: Pile, to destination: Pile) {
-        guard let bottomCard = cards.first else { return }
+    mutating func moveSelected(cards: [Card], from source: Pile, to destination: Pile) -> Bool {
+        guard let bottomCard = cards.first else { return false }
         var allowed = false
         
         switch destination {
         case .tableau(let column):
             allowed = canMoveCardToTableau(bottomCard, column: column)
         case .foundation(let suit):
-            guard cards.onlyOne else { return }
+            guard cards.onlyOne else { return false }
             allowed = canMoveCardToFoundation(bottomCard, for: suit)
         default:
-            break
+            return false
         }
         
         if allowed {
             moveCards(cards, from: source, to: destination)
         }
+        return allowed
     }
     
     private func canMoveCardToTableau(_ card: Card, column: Int) -> Bool {

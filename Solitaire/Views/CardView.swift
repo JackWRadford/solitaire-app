@@ -10,6 +10,8 @@ import SwiftUI
 struct CardView: View {
     typealias Suit = Card.Suit
     
+    @EnvironmentObject var gameVM: GameViewModel
+    
     let card: Card
     let hasShadow: Bool
     
@@ -64,6 +66,9 @@ struct CardView: View {
                     Spacer()
                 }
                 .foregroundColor(suitColor(for: card.suit))
+            }
+            .onTapGesture {
+                gameVM.autoMove(card)
             }
     }
     

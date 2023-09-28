@@ -22,4 +22,10 @@ class GameViewModel: ObservableObject {
             game.iterateTalon()
         }
     }
+    
+    func autoMove(_ card: Card) {
+        withAnimation {
+           let _ = game.autoMove(card)
+        }
+    }
 }
