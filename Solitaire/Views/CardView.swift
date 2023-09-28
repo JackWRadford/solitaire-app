@@ -26,7 +26,7 @@ struct CardView: View {
         static let shadowRadius: CGFloat = 1
         static let frontHeaderHorizontalPadding: CGFloat = 4
         static let frontHeaderTopPadding: CGFloat = 1
-        static let backColor: some ShapeStyle = .red
+        static let backColor: some ShapeStyle = .foreground
         static let faceColor: some ShapeStyle = .background
     }
     
