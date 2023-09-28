@@ -12,13 +12,12 @@ struct GameView: View {
     
     var body: some View {
         VStack(spacing: 24) {
-            HStack {
+            HStack(spacing: TableauView.columnSpacing) {
                 FoundationsView(cardWidth: cardWidth)
-                Spacer()
+                TalonView(cardWidth: cardWidth)
                 DeckView(cardWidth: cardWidth)
             }
             TableauView(cardWidth: $cardWidth)
-            Spacer()
         }
         .padding()
         .background(.quaternary)

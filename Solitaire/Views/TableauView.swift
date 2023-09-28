@@ -19,10 +19,9 @@ struct TableauView: View {
         GeometryReader { geometry in
             HStack(alignment: .top, spacing: Self.columnSpacing) {
                 ForEach(Array(0..<columnCount), id: \.self) { index in
-                    VStack {
-                        ForEach(Array(gameVM.game.tableau[index].enumerated()), id: \.1.id) { index, card in
+                    VStack(spacing: yOffsetConstant) {
+                        ForEach(gameVM.game.tableau[index]) { card in
                             CardView(card)
-                                .offset(x: 0, y: yOffsetConstant * CGFloat(index))
                         }
                     }
                 }

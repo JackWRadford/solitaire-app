@@ -6,11 +6,20 @@
 //
 
 import Foundation
+import SwiftUI
 
 class GameViewModel: ObservableObject {
-    private(set) var game: Game
+    @Published private(set) var game: Game
     
     init(_ game: Game) {
         self.game = game
+    }
+    
+    //MARK: - Intent
+    
+    func iterateTalon() {
+        withAnimation {
+            game.iterateTalon()
+        }
     }
 }

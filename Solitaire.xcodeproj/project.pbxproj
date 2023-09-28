@@ -19,6 +19,7 @@
 		DDE23FF02AC4561E00A625DE /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE23FEF2AC4561E00A625DE /* DeckView.swift */; };
 		DDE23FF22AC5888700A625DE /* FoundationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE23FF12AC5888700A625DE /* FoundationsView.swift */; };
 		DDE23FF42AC5943B00A625DE /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE23FF32AC5943B00A625DE /* CardStackView.swift */; };
+		DDE23FF62AC5BA4B00A625DE /* TalonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE23FF52AC5BA4B00A625DE /* TalonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		DDE23FEF2AC4561E00A625DE /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 		DDE23FF12AC5888700A625DE /* FoundationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationsView.swift; sourceTree = "<group>"; };
 		DDE23FF32AC5943B00A625DE /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
+		DDE23FF52AC5BA4B00A625DE /* TalonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				DDE23FEF2AC4561E00A625DE /* DeckView.swift */,
 				DDE23FF12AC5888700A625DE /* FoundationsView.swift */,
 				DDE23FF32AC5943B00A625DE /* CardStackView.swift */,
+				DDE23FF52AC5BA4B00A625DE /* TalonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				DDA72A8C2AC0B63E00439A54 /* GameView.swift in Sources */,
 				DDE23FEE2AC3909400A625DE /* TableauView.swift in Sources */,
 				DDA72A8A2AC0B63E00439A54 /* SolitaireApp.swift in Sources */,
+				DDE23FF62AC5BA4B00A625DE /* TalonView.swift in Sources */,
 				DDE23FF02AC4561E00A625DE /* DeckView.swift in Sources */,
 				DDA72A982AC0D58100439A54 /* Game.swift in Sources */,
 				DDE23FF42AC5943B00A625DE /* CardStackView.swift in Sources */,

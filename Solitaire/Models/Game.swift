@@ -30,6 +30,7 @@ struct Game {
         dealTableau()
     }
     
+    /// Add all Rank cards for each Suit, then shuffle
     private mutating func initializeDeck() {
         var deck: [Card] = []
         for suit in Suit.allCases {
@@ -52,6 +53,34 @@ struct Game {
                     }
                 }
             }
+        }
+    }
+    
+    /// Move the top Stock card to the Talon,
+    /// or if the Stock is empty move all Talon cards into the Stock
+    mutating func iterateTalon() {
+        if stock.count > 0 {
+            dealTalon()
+        } else {
+            // Set all Talon cards to face down
+            for index in 0..<talon.count {
+                talon[index].isFaceUp = false
+            }
+            // Move Talon cards to the Stock in reverse order
+            talon.forEach { _ in
+                let card = talon.popLast()
+                if let card {
+                    stock.append(card)
+                }
+            }
+        }
+    }
+    
+    private mutating func dealTalon() {
+        guard stock.count > 0 else { return }
+        stock[stock.count - 1].isFaceUp = true
+        if let card = stock.popLast() {
+            talon.append(card)
         }
     }
     
