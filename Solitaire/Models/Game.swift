@@ -91,6 +91,7 @@ struct Game {
     }
     
     /// Move the `card` (and any child cards if in the Tableau)
+    /// Try the relevant foundation first if the card is not in the foundation, then try the Tableau
     mutating func autoMove(_ card: Card) -> Bool {
         if let (pile, index) = findCard(card) {
             var cardsToMove = [card]
@@ -98,17 +99,42 @@ struct Game {
             case .tableau(let column):
                 // Get the tapped card and the cards on top of it
                 cardsToMove = Array(tableau[column][index...])
+                fallthrough // check the foundation for a potential move
+            case .talon: // This case also applies if the pile is Tableau (fallthrough from above)
+                if moveSelected(cards: cardsToMove, from: pile, to: .foundation(suit: card.suit)) { return true }
             default:
                 break
             }
-            for suit in Suit.allCases {
-                if moveSelected(cards: cardsToMove, from: pile, to: .foundation(suit: suit)) { return true }
-            }
-            for column in 0..<tableau.count {
-                if moveSelected(cards: cardsToMove, from: pile, to: .tableau(column: column)) { return true }
-            }
+            // Try to move to a Tableau column
+            return autoMoveToTableau(cardsToMove, from: pile)
         } else {
             // Could not find card
+            print("Card not found")
+        }
+        return false
+    }
+    
+    /// Try Tableau columns.
+    /// If the card is in the Tableau, start from the next column and end at the previous column,
+    /// otherwise just iterate through all columns
+    private mutating func autoMoveToTableau(_ cards: [Card], from pile: Pile) -> Bool {
+        switch pile {
+        case .tableau(let column):
+            if column == tableau.count - 1 { fallthrough } // Just iterate normally (default case)
+            if moveToTableauInRange(cards, from: pile, range: (column + 1)..<tableau.count) {
+                return true
+            } else {
+                return moveToTableauInRange(cards, from: pile, range: 0..<column)
+            }
+        default:
+            return moveToTableauInRange(cards, from: pile, range: 0..<tableau.count)
+        }
+    }
+    
+    /// Try to move the `cards` from `pile` to a Tableau column in the given `range`
+    private mutating func moveToTableauInRange(_ cards: [Card], from pile: Pile, range: Range<Int>) -> Bool {
+        for column in range {
+            if moveSelected(cards: cards, from: pile, to: .tableau(column: column)) { return true }
         }
         return false
     }
@@ -154,9 +180,9 @@ struct Game {
         switch destination {
         case .tableau(let column):
             allowed = canMoveCardToTableau(bottomCard, column: column)
-        case .foundation(let suit):
+        case .foundation:
             guard cards.onlyOne else { return false }
-            allowed = canMoveCardToFoundation(bottomCard, for: suit)
+            allowed = canMoveCardToFoundation(bottomCard)
         default:
             return false
         }
@@ -176,8 +202,8 @@ struct Game {
         }
     }
     
-    private func canMoveCardToFoundation(_ card: Card, for suit: Suit) -> Bool {
-        guard let foundation = foundations[suit] else { return false }
+    private func canMoveCardToFoundation(_ card: Card) -> Bool {
+        guard let foundation = foundations[card.suit] else { return false }
         if let destinationCard = foundation.last {
             return card.suit == destinationCard.suit && card.rank.rawValue == destinationCard.rank.rawValue + 1
         } else {
