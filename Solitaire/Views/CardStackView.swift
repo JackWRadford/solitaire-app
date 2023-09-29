@@ -11,15 +11,20 @@ struct CardStackView: View {
     
     let cards: [Card]
     let cardWidth: CGFloat
-    let placeholderImage: String
+    let placeholderImage: String?
+    let yOffsetMultiplier: CGFloat
     
-    init(_ cards: [Card], cardWidth: CGFloat, placeholderImage: String) {
+    init(_ cards: [Card],
+         cardWidth: CGFloat,
+         placeholderImage: String? = nil,
+         yOffsetMultiplier: CGFloat = -0.01) {
         self.cards = cards
         self.cardWidth = cardWidth
         self.placeholderImage = placeholderImage
+        self.yOffsetMultiplier = yOffsetMultiplier
     }
     
-    private var yOffsetConstant: CGFloat { -(cardWidth * 0.01) }
+    private var yOffsetConstant: CGFloat { (cardWidth * yOffsetMultiplier) }
     
     var body: some View {
         Group {
@@ -42,8 +47,10 @@ struct CardStackView: View {
             .fill(.regularMaterial)
             .aspectRatio(CardView.aspectRatio, contentMode: .fit)
             .overlay {
-                Image(systemName: placeholderImage)
-                    .foregroundColor(.secondary)
+                if let placeholderImage {
+                    Image(systemName: placeholderImage)
+                        .foregroundColor(.secondary)
+                }
             }
     }
 }

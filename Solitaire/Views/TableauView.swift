@@ -19,18 +19,17 @@ struct TableauView: View {
         GeometryReader { geometry in
             HStack(alignment: .top, spacing: Self.columnSpacing) {
                 ForEach(Array(0..<columnCount), id: \.self) { index in
-                    VStack(spacing: yOffsetConstant) {
-                        ForEach(gameVM.game.tableau[index]) { card in
-                            CardView(card)
-                        }
-                    }
+                    CardStackView(gameVM.game.tableau[index], cardWidth: cardWidth, yOffsetMultiplier: 0.5)
                 }
             }
-            .onAppear {
-                let totalSpacingWidth = Self.columnSpacing * CGFloat(columnCount - 1)
-                cardWidth = (geometry.size.width - totalSpacingWidth) / CGFloat(columnCount)
-            }
+            .onAppear { calculateCardWidth(geometry) }
         }
+    }
+    
+    /// Calculates and sets the `cardWidth` dependant on the columnSpacing and the given `geometry`
+    private func calculateCardWidth(_ geometry: GeometryProxy) {
+        let totalSpacingWidth = Self.columnSpacing * CGFloat(columnCount - 1)
+        cardWidth = (geometry.size.width - totalSpacingWidth) / CGFloat(columnCount)
     }
 }
 
