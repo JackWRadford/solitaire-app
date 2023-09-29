@@ -92,12 +92,20 @@ struct Game {
     
     /// Move the `card` (and any child cards if in the Tableau)
     mutating func autoMove(_ card: Card) -> Bool {
-        if let (pile, _) = findCard(card) {
+        if let (pile, index) = findCard(card) {
+            var cardsToMove = [card]
+            switch pile {
+            case .tableau(let column):
+                // Get the tapped card and the cards on top of it
+                cardsToMove = Array(tableau[column][index...])
+            default:
+                break
+            }
             for suit in Suit.allCases {
-                if moveSelected(cards: [card], from: pile, to: .foundation(suit: suit)) { return true }
+                if moveSelected(cards: cardsToMove, from: pile, to: .foundation(suit: suit)) { return true }
             }
             for column in 0..<tableau.count {
-                if moveSelected(cards: [card], from: pile, to: .tableau(column: column)) { return true }
+                if moveSelected(cards: cardsToMove, from: pile, to: .tableau(column: column)) { return true }
             }
         } else {
             // Could not find card
