@@ -25,6 +25,12 @@ struct Game {
         initializeGame()
     }
     
+    enum Pile {
+        case tableau(column: Int)
+        case foundation(suit: Card.Suit)
+        case talon
+    }
+    
     private mutating func initializeGame() {
         initializeDeck()
         dealTableau()
@@ -133,12 +139,6 @@ struct Game {
         return nil
     }
     
-    enum Pile {
-        case tableau(column: Int)
-        case foundation(suit: Card.Suit)
-        case talon
-    }
-    
     mutating func moveSelected(cards: [Card], from source: Pile, to destination: Pile) -> Bool {
         guard let bottomCard = cards.first else { return false }
         var allowed = false
@@ -191,8 +191,19 @@ struct Game {
             guard cards.onlyOne else { return }
             foundations[suit]?.removeAll { $0.id == cards[0].id}
         case .tableau(let column):
-            let sourceColumnCards = tableau[column]
-            tableau[column] = sourceColumnCards.filter { !cards.contains($0) }
+            removeCardsFromTableau(cards, column: column)
+        }
+    }
+    
+    /// Make sure the remaining top card is face up
+    private mutating func removeCardsFromTableau(_ cards: [Card], column: Int) {
+        // Remove cards
+        let sourceColumnCards = tableau[column]
+        tableau[column] = sourceColumnCards.filter { !cards.contains($0) }
+        // Make sure that the top card is face up
+        let lastIndexOfColumn = tableau[column].count - 1
+        if lastIndexOfColumn >= 0 {
+            tableau[column][lastIndexOfColumn].isFaceUp = true
         }
     }
     
