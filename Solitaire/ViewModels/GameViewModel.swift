@@ -18,14 +18,10 @@ class GameViewModel: ObservableObject {
     //MARK: - Intent
     
     func iterateTalon() {
-        withAnimation {
-            game.iterateTalon()
-        }
+        game.iterateTalon()
     }
     
     func autoMove(_ card: Card) {
-        withAnimation {
-           let _ = game.autoMove(card)
-        }
+        let _ = game.autoMove(card)
     }
 }

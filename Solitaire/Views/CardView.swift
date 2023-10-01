@@ -11,6 +11,7 @@ struct CardView: View {
     typealias Suit = Card.Suit
     
     @EnvironmentObject var gameVM: GameViewModel
+    @EnvironmentObject var namespaceWrapper: NamespaceWrapper
     
     let card: Card
     let hasShadow: Bool
@@ -45,6 +46,8 @@ struct CardView: View {
             }
         }
         .aspectRatio(Self.aspectRatio, contentMode: .fit)
+        .matchedGeometryEffect(id: card.id, in: namespaceWrapper.namespace)
+        .transition(.asymmetric(insertion: .identity, removal: .identity))
     }
     
     var base: some InsettableShape {
@@ -68,7 +71,9 @@ struct CardView: View {
                 .foregroundColor(suitColor(for: card.suit))
             }
             .onTapGesture {
-                gameVM.autoMove(card)
+                withAnimation {
+                    gameVM.autoMove(card)
+                }
             }
     }
     
@@ -85,10 +90,13 @@ struct CardView: View {
 }
 
 struct CardView_Previews: PreviewProvider {
+    @Namespace static var namespace
+    
     static var previews: some View {
         let gameVm = GameViewModel(Game())
         CardView(gameVm.game.stock[0])
             .frame(maxWidth: 200)
             .environmentObject(gameVm)
+            .environmentObject(NamespaceWrapper(namespace: namespace))
     }
 }

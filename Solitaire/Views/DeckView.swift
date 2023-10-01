@@ -14,7 +14,9 @@ struct DeckView: View {
     var body: some View {
         CardStackView(gameVM.game.stock, cardWidth: cardWidth, placeholderImage: "circle.fill")
             .onTapGesture {
-                gameVM.iterateTalon()
+                withAnimation {
+                    gameVM.iterateTalon()
+                }
             }
     }
 }

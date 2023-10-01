@@ -10,6 +10,8 @@ struct GameView: View {
     @EnvironmentObject var gameVM: GameViewModel
     @State var cardWidth: CGFloat = .zero
     
+    @Namespace private var gameNamespace
+    
     var body: some View {
         VStack(spacing: 24) {
             HStack(spacing: TableauView.columnSpacing) {
@@ -21,6 +23,15 @@ struct GameView: View {
         }
         .padding()
         .background(.quaternary)
+        .environmentObject(NamespaceWrapper(namespace: gameNamespace))
+    }
+}
+
+class NamespaceWrapper: ObservableObject {
+    var namespace: Namespace.ID
+    
+    init(namespace: Namespace.ID) {
+        self.namespace = namespace
     }
 }
 
