@@ -7,7 +7,8 @@
 import SwiftUI
 
 struct GameView: View {
-    @EnvironmentObject var gameVM: GameViewModel
+    @Environment(\.scenePhase) private var scenePhase
+    @EnvironmentObject private var gameVM: GameViewModel
     @State var cardWidth: CGFloat = .zero
     @State private var showingCompleteAlert = false
     @Namespace private var gameNamespace
@@ -35,12 +36,23 @@ struct GameView: View {
             .onChange(of: gameVM.isComplete) { value in
                 showingCompleteAlert = value
             }
+            .onChange(of: scenePhase, perform: handleScenePhaseChange)
         }
         .environmentObject(NamespaceWrapper(namespace: gameNamespace))
     }
     
     private var newGameBtn: some View {
         Button("New Game") { resetGame() }
+    }
+    
+    /// Saves the game state if `newScenePhase` is background or inactive
+    private func handleScenePhaseChange(newScenePhase: ScenePhase) {
+        switch newScenePhase {
+        case .background, .inactive:
+            gameVM.saveGame()
+        default:
+            break
+        }
     }
     
     private func resetGame() {

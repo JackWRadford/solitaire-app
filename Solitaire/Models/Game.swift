@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Game {
+struct Game: Codable {
     typealias Suit = Card.Suit
     static let tableauColumnCount = 7
     

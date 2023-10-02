@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Equatable, Identifiable {
+struct Card: Equatable, Identifiable, Codable {
     let id: UUID
     let rank: Rank
     let suit: Suit
@@ -17,7 +17,7 @@ struct Card: Equatable, Identifiable {
         return lhs.id == rhs.id
     }
     
-    enum Suit: String, CaseIterable, Identifiable {
+    enum Suit: String, CaseIterable, Identifiable, Codable {
         case spade, club, diamond, heart
         
         var id: String { self.rawValue }
@@ -50,7 +50,7 @@ struct Card: Equatable, Identifiable {
         }
     }
     
-    enum Rank: Int, CaseIterable {
+    enum Rank: Int, CaseIterable, Codable {
         case ace = 1
         case two = 2
         case three = 3
