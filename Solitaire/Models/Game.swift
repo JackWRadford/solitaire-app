@@ -21,6 +21,10 @@ struct Game {
         .heart: []
     ]
     
+    var isComplete: Bool {
+        foundationsAreComplete()
+    }
+    
     init() {
         initializeGame()
     }
@@ -29,6 +33,17 @@ struct Game {
         case tableau(column: Int)
         case foundation(suit: Card.Suit)
         case talon
+    }
+    
+    /// If any foundations are not complete, return false, else return true
+    private func foundationsAreComplete() -> Bool {
+        for suit in Suit.allCases {
+            guard let foundation = foundations[suit] else { return false }
+            if foundation.count != 13 {
+                return false
+            }
+        }
+        return true
     }
     
     private mutating func initializeGame() {
@@ -250,14 +265,6 @@ struct Game {
         case .foundation(let suit):
             foundations[suit]?.append(contentsOf: cards)
         }
-    }
-    
-    func isComplete() -> Bool {
-        for suit in Suit.allCases {
-            guard let foundation = foundations[suit] else { return false }
-            return foundation.count == 13
-        }
-        return false
     }
 }
 

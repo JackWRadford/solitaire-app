@@ -9,7 +9,7 @@ import SwiftUI
 struct GameView: View {
     @EnvironmentObject var gameVM: GameViewModel
     @State var cardWidth: CGFloat = .zero
-    
+    @State private var showingCompleteAlert = false
     @Namespace private var gameNamespace
     
     var body: some View {
@@ -23,7 +23,29 @@ struct GameView: View {
         }
         .padding()
         .background(.quaternary)
+        .toolbar {
+            ToolbarItemGroup(placement: .bottomBar) {
+                Spacer()
+                newGameBtn
+            }
+        }
+        .alert("Complete!", isPresented: $showingCompleteAlert) {
+            Button("Play Again") { resetGame() }
+        }
+        .onChange(of: gameVM.isComplete) { value in
+            showingCompleteAlert = value
+        }
         .environmentObject(NamespaceWrapper(namespace: gameNamespace))
+    }
+    
+    private var newGameBtn: some View {
+        Button("New Game") { resetGame() }
+    }
+    
+    private func resetGame() {
+        withAnimation {
+            gameVM.resetGame()
+        }
     }
 }
 

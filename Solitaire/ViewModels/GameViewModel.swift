@@ -11,6 +11,8 @@ import SwiftUI
 class GameViewModel: ObservableObject {
     @Published private(set) var game: Game
     
+    var isComplete: Bool { game.isComplete }
+    
     init(_ game: Game) {
         self.game = game
     }
@@ -23,5 +25,9 @@ class GameViewModel: ObservableObject {
     
     func autoMove(_ card: Card) {
         let _ = game.autoMove(card)
+    }
+    
+    func resetGame() {
+        game = Game()
     }
 }
