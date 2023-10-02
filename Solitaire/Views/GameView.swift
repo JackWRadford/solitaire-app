@@ -13,27 +13,28 @@ struct GameView: View {
     @Namespace private var gameNamespace
     
     var body: some View {
-        VStack(spacing: 24) {
-            HStack(spacing: TableauView.columnSpacing) {
-                FoundationsView(cardWidth: cardWidth)
-                TalonView(cardWidth: cardWidth)
-                DeckView(cardWidth: cardWidth)
+        NavigationStack {
+            VStack(spacing: 24) {
+                HStack(spacing: TableauView.columnSpacing) {
+                    FoundationsView(cardWidth: cardWidth)
+                    TalonView(cardWidth: cardWidth)
+                    DeckView(cardWidth: cardWidth)
+                }
+                TableauView(cardWidth: $cardWidth)
             }
-            TableauView(cardWidth: $cardWidth)
-        }
-        .padding()
-        .background(.quaternary)
-        .toolbar {
-            ToolbarItemGroup(placement: .bottomBar) {
-                Spacer()
-                newGameBtn
+            .padding()
+            .background(.quaternary)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    newGameBtn
+                }
             }
-        }
-        .alert("Complete!", isPresented: $showingCompleteAlert) {
-            Button("Play Again") { resetGame() }
-        }
-        .onChange(of: gameVM.isComplete) { value in
-            showingCompleteAlert = value
+            .alert("Complete!", isPresented: $showingCompleteAlert) {
+                Button("Play Again") { resetGame() }
+            }
+            .onChange(of: gameVM.isComplete) { value in
+                showingCompleteAlert = value
+            }
         }
         .environmentObject(NamespaceWrapper(namespace: gameNamespace))
     }
