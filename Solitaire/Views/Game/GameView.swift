@@ -9,9 +9,12 @@ import SwiftUI
 struct GameView: View {
     @Environment(\.scenePhase) private var scenePhase
     @EnvironmentObject private var gameVM: GameViewModel
-    @State var cardWidth: CGFloat = .zero
-    @State private var showingCompleteAlert = false
+    @AppStorage(UDKey.theme()) var theme = Theme.system.rawValue
     @Namespace private var gameNamespace
+    @State private var showingCompleteAlert = false
+    @State private var showingSettingsSheet = false
+    
+    @State var cardWidth: CGFloat = .zero
     
     var body: some View {
         NavigationStack {
@@ -29,6 +32,9 @@ struct GameView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     newGameBtn
                 }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    settingsBtn
+                }
             }
             .alert("Complete!", isPresented: $showingCompleteAlert) {
                 Button("Play Again") { resetGame() }
@@ -37,8 +43,20 @@ struct GameView: View {
                 showingCompleteAlert = value
             }
             .onChange(of: scenePhase, perform: handleScenePhaseChange)
+            .sheet(isPresented: $showingSettingsSheet) {
+                SettingsView()
+            }
         }
         .environmentObject(NamespaceWrapper(namespace: gameNamespace))
+        .preferredColorScheme(Theme(rawValue: theme)?.toColorScheme())
+    }
+    
+    private var settingsBtn: some View {
+        Button {
+            showingSettingsSheet = true
+        } label: {
+            Image(systemName: "gearshape.fill")
+        }
     }
     
     private var newGameBtn: some View {

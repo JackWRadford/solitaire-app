@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD46631F2ACB2A600014C86C /* EnumPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD46631E2ACB2A600014C86C /* EnumPicker.swift */; };
+		DD4663222ACB2A8C0014C86C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4663212ACB2A8C0014C86C /* Theme.swift */; };
+		DD4663242ACB2AF30014C86C /* UDKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4663232ACB2AF30014C86C /* UDKey.swift */; };
 		DDA72A8A2AC0B63E00439A54 /* SolitaireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA72A892AC0B63E00439A54 /* SolitaireApp.swift */; };
 		DDA72A8C2AC0B63E00439A54 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA72A8B2AC0B63E00439A54 /* GameView.swift */; };
 		DDA72A8E2AC0B63F00439A54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDA72A8D2AC0B63F00439A54 /* Assets.xcassets */; };
 		DDA72A912AC0B63F00439A54 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDA72A902AC0B63F00439A54 /* Preview Assets.xcassets */; };
 		DDA72A982AC0D58100439A54 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA72A972AC0D58100439A54 /* Game.swift */; };
 		DDA72A9B2AC0EFA800439A54 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA72A9A2AC0EFA800439A54 /* Card.swift */; };
+		DDD218B92ACB28CB0076E8EC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD218B82ACB28CB0076E8EC /* SettingsView.swift */; };
 		DDE23FE62AC31AB300A625DE /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE23FE52AC31AB300A625DE /* GameViewModel.swift */; };
 		DDE23FEA2AC330F700A625DE /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE23FE92AC330F700A625DE /* CardView.swift */; };
 		DDE23FEE2AC3909400A625DE /* TableauView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE23FED2AC3909400A625DE /* TableauView.swift */; };
@@ -23,6 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD46631E2ACB2A600014C86C /* EnumPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumPicker.swift; sourceTree = "<group>"; };
+		DD4663212ACB2A8C0014C86C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		DD4663232ACB2AF30014C86C /* UDKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDKey.swift; sourceTree = "<group>"; };
 		DDA72A862AC0B63E00439A54 /* Solitaire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Solitaire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA72A892AC0B63E00439A54 /* SolitaireApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolitaireApp.swift; sourceTree = "<group>"; };
 		DDA72A8B2AC0B63E00439A54 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -30,6 +37,7 @@
 		DDA72A902AC0B63F00439A54 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DDA72A972AC0D58100439A54 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		DDA72A9A2AC0EFA800439A54 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		DDD218B82ACB28CB0076E8EC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		DDE23FE52AC31AB300A625DE /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		DDE23FE92AC330F700A625DE /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		DDE23FED2AC3909400A625DE /* TableauView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauView.swift; sourceTree = "<group>"; };
@@ -50,6 +58,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD4663202ACB2A840014C86C /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				DD4663212ACB2A8C0014C86C /* Theme.swift */,
+				DD4663232ACB2AF30014C86C /* UDKey.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		DDA72A7D2AC0B63E00439A54 = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +86,7 @@
 		DDA72A882AC0B63E00439A54 /* Solitaire */ = {
 			isa = PBXGroup;
 			children = (
+				DD4663202ACB2A840014C86C /* Enums */,
 				DDE23FE42AC31A9400A625DE /* ViewModels */,
 				DDA72A9C2AC1D8DA00439A54 /* Views */,
 				DDA72A992AC0EF9A00439A54 /* Models */,
@@ -99,6 +117,15 @@
 		DDA72A9C2AC1D8DA00439A54 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DDD218B72ACB28C10076E8EC /* Settings */,
+				DDD218B62ACB28AA0076E8EC /* Game */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DDD218B62ACB28AA0076E8EC /* Game */ = {
+			isa = PBXGroup;
+			children = (
 				DDA72A8B2AC0B63E00439A54 /* GameView.swift */,
 				DDE23FED2AC3909400A625DE /* TableauView.swift */,
 				DDE23FE92AC330F700A625DE /* CardView.swift */,
@@ -107,7 +134,16 @@
 				DDE23FF32AC5943B00A625DE /* CardStackView.swift */,
 				DDE23FF52AC5BA4B00A625DE /* TalonView.swift */,
 			);
-			path = Views;
+			path = Game;
+			sourceTree = "<group>";
+		};
+		DDD218B72ACB28C10076E8EC /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				DDD218B82ACB28CB0076E8EC /* SettingsView.swift */,
+				DD46631E2ACB2A600014C86C /* EnumPicker.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		DDE23FE42AC31A9400A625DE /* ViewModels */ = {
@@ -197,8 +233,12 @@
 				DDE23FF42AC5943B00A625DE /* CardStackView.swift in Sources */,
 				DDE23FF22AC5888700A625DE /* FoundationsView.swift in Sources */,
 				DDE23FE62AC31AB300A625DE /* GameViewModel.swift in Sources */,
+				DDD218B92ACB28CB0076E8EC /* SettingsView.swift in Sources */,
 				DDE23FEA2AC330F700A625DE /* CardView.swift in Sources */,
+				DD46631F2ACB2A600014C86C /* EnumPicker.swift in Sources */,
+				DD4663242ACB2AF30014C86C /* UDKey.swift in Sources */,
 				DDA72A9B2AC0EFA800439A54 /* Card.swift in Sources */,
+				DD4663222ACB2A8C0014C86C /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
