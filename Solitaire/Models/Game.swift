@@ -11,6 +11,17 @@ struct Game: Codable {
     typealias Suit = Card.Suit
     static let tableauColumnCount = 7
     
+    struct Points {
+        static let toFoundation = 10
+        static let deckToTableau = 5
+        static let tableauTurn = 5
+        static let elapsedTime = -2
+        static let fromFoundation = -15
+        static let deckPass = -100
+        
+        static let timeInterval = 10 // Seconds before elapsedTime deduction
+    }
+    
     private(set) var stock: [Card] = []
     private(set) var talon: [Card] = []
     private(set) var tableau: [[Card]] = Array(repeating: [], count: tableauColumnCount)
@@ -21,6 +32,7 @@ struct Game: Codable {
         .heart: []
     ]
     var secondsElapsed = 0
+    private(set) var score = 0
     
     var isComplete: Bool {
         foundationsAreComplete()
@@ -34,6 +46,12 @@ struct Game: Codable {
         case tableau(column: Int)
         case foundation(suit: Card.Suit)
         case talon
+    }
+    
+    /// Update the score with `value`. Minimum score is zero.
+    mutating func updateScore(_ value: Int) {
+        let newScore = score + value
+        score = newScore < 0 ? 0 : newScore
     }
     
     /// If any foundations are not complete, return false, else return true
@@ -79,11 +97,12 @@ struct Game: Codable {
     }
     
     /// Move the top Stock card to the Talon,
-    /// or if the Stock is empty move all Talon cards into the Stock
+    /// or if the Stock is empty move all Talon cards into the Stock and update the score
     mutating func iterateTalon() {
         if stock.count > 0 {
             dealTalon()
         } else {
+            updateScore(Points.deckPass)
             // Set all Talon cards to face down
             for index in 0..<talon.count {
                 talon[index].isFaceUp = false
@@ -227,9 +246,24 @@ struct Game: Codable {
         }
     }
     
+    /// Remove `cards` from `source` and add to `destination`, then update the score
     private mutating func moveCards(_ cards: [Card], from source: Pile, to destination: Pile) {
         removeCardsFromPile(cards, pile: source)
         addCardsToPile(cards, pile: destination)
+        updateScoreFromMove(cardCount: cards.count, from: source, to: destination)
+    }
+    
+    private mutating func updateScoreFromMove(cardCount: Int, from source: Pile, to destination: Pile) {
+        switch (source, destination) {
+        case (.talon, .foundation), (.tableau, .foundation):
+            updateScore(Points.toFoundation * cardCount)
+        case (.talon, .tableau):
+            updateScore(Points.deckToTableau * cardCount)
+        case (.foundation, .tableau):
+            updateScore(Points.fromFoundation * cardCount)
+        default:
+            break
+        }
     }
     
     private mutating func removeCardsFromPile(_ cards: [Card], pile: Pile) {
@@ -250,10 +284,13 @@ struct Game: Codable {
         // Remove cards
         let sourceColumnCards = tableau[column]
         tableau[column] = sourceColumnCards.filter { !cards.contains($0) }
-        // Make sure that the top card is face up
+        // Make sure that the top card is face up and award points if it was not
         let lastIndexOfColumn = tableau[column].count - 1
         if lastIndexOfColumn >= 0 {
-            tableau[column][lastIndexOfColumn].isFaceUp = true
+            if !tableau[column][lastIndexOfColumn].isFaceUp {
+                tableau[column][lastIndexOfColumn].isFaceUp = true
+                updateScore(Points.tableauTurn)
+            }
         }
     }
     

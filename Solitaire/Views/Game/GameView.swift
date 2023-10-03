@@ -36,7 +36,11 @@ struct GameView: View {
                     settingsBtn
                 }
                 ToolbarItem {
-                    Text(gameVM.timeElapsed)
+                    HStack {
+                        Text(String(gameVM.game.score))
+                        Divider()
+                        Text(gameVM.timeElapsed)
+                    }
                         .font(Font.system(.body, design: .monospaced))
                 }
             }

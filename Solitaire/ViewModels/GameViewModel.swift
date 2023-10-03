@@ -55,7 +55,11 @@ class GameViewModel: ObservableObject {
         Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
-                self?.secondsElapsed += 1
+                guard self != nil else { return }
+                self!.secondsElapsed += 1
+                if ((self!.secondsElapsed % Game.Points.timeInterval) == 0) {
+                    self!.game.updateScore(Game.Points.elapsedTime)
+                }
             }
             .store(in: &cancellables)
     }
