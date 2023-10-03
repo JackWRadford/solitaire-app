@@ -29,21 +29,11 @@ struct GameView: View {
             .padding()
             .background(.quaternary)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    newGameBtn
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    settingsBtn
-                }
-                ToolbarItem {
-                    HStack {
-                        Text(String(gameVM.game.score))
-                        Divider()
-                        Text(gameVM.timeElapsed)
-                    }
-                        .font(Font.system(.body, design: .monospaced))
-                }
+                ToolbarItem(placement: .navigationBarTrailing) { menuButton }
+                ToolbarItem(placement: .navigationBarLeading) { score }
+                ToolbarItem { Text(gameVM.timeElapsed) }
             }
+            .font(Font.system(.body, design: .monospaced))
             .alert("Complete!", isPresented: $showingCompleteAlert) {
                 Button("Play Again") { resetGame() }
             }
@@ -51,24 +41,38 @@ struct GameView: View {
                 showingCompleteAlert = value
             }
             .onChange(of: scenePhase, perform: handleScenePhaseChange)
-            .sheet(isPresented: $showingSettingsSheet) {
-                SettingsView()
-            }
+            .sheet(isPresented: $showingSettingsSheet) { SettingsView() }
         }
         .environmentObject(NamespaceWrapper(namespace: gameNamespace))
         .preferredColorScheme(Theme(rawValue: theme)?.toColorScheme())
+    }
+    
+    private var score: some View {
+        Text("Score: \(gameVM.game.score)")
+            .animation(.none)
+    }
+    
+    private var menuButton: some View {
+        Menu {
+            settingsBtn
+            newGameBtn
+        } label: {
+            Image(systemName: "ellipsis.circle")
+        }
     }
     
     private var settingsBtn: some View {
         Button {
             showingSettingsSheet = true
         } label: {
-            Image(systemName: "gearshape.fill")
+            Label("Settings", systemImage: "gearshape.fill")
         }
     }
     
     private var newGameBtn: some View {
-        Button("New Game") { resetGame() }
+        Button(action: resetGame) {
+            Label("New Game", systemImage: "play.fill")
+        }
     }
     
     /// Saves the game state if `newScenePhase` is background or inactive
