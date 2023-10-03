@@ -33,7 +33,7 @@ struct CardView: View {
         static let frontHeaderTopPadding: CGFloat = 1
         static let backColor: some ShapeStyle = Color.accentColor.gradient
         static let lightFaceColor: Color = Color.white
-        static let darkFaceColor: Color = Color(red: 0.26, green: 0.26, blue: 0.26)
+        static let darkFaceColor: Color = Color(red: 0.24, green: 0.24, blue: 0.24)
     }
     
     private var faceColor: some ShapeStyle {
