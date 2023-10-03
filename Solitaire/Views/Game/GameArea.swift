@@ -19,9 +19,6 @@ struct GameArea: View {
                 TalonView(cardWidth: cardWidth)
                 DeckView(cardWidth: cardWidth)
             }
-            .padding(TableauView.columnSpacing)
-            .background(Color.accentColor.opacity(0.8))
-            .clipShape(RoundedRectangle(cornerRadius: CardView.cornerRadius + TableauView.columnSpacing))
             
             TableauView(cardWidth: $cardWidth)
         }
