@@ -10,6 +10,8 @@ import SwiftUI
 struct CardView: View {
     typealias Suit = Card.Suit
     
+    @Environment(\.colorScheme) private var colorScheme
+    
     @EnvironmentObject var gameVM: GameViewModel
     @EnvironmentObject var namespaceWrapper: NamespaceWrapper
     
@@ -29,8 +31,13 @@ struct CardView: View {
         static let shadowRadius: CGFloat = 1
         static let frontHeaderHorizontalPadding: CGFloat = 4
         static let frontHeaderTopPadding: CGFloat = 1
-        static let backColor: some ShapeStyle = .foreground
-        static let faceColor: some ShapeStyle = .background
+        static let backColor: some ShapeStyle = Color.accentColor.gradient
+        static let lightFaceColor: Color = Color.white
+        static let darkFaceColor: Color = Color(red: 0.26, green: 0.26, blue: 0.26)
+    }
+    
+    private var faceColor: some ShapeStyle {
+        return colorScheme == .dark ? Constants.darkFaceColor : Constants.lightFaceColor
     }
     
     private var shadowRadius: CGFloat {
@@ -55,8 +62,8 @@ struct CardView: View {
     }
     
     var face: some View {
-        base.strokeBorder(Constants.faceColor, lineWidth: Constants.lineWidth)
-            .background(base.fill(Constants.faceColor).shadow(radius: shadowRadius))
+        base.strokeBorder(faceColor, lineWidth: Constants.lineWidth)
+            .background(base.fill(faceColor).shadow(radius: shadowRadius))
             .overlay {
                 VStack(alignment: .leading) {
                     HStack {
@@ -94,9 +101,20 @@ struct CardView_Previews: PreviewProvider {
     
     static var previews: some View {
         let gameVm = GameViewModel(Game())
-        CardView(gameVm.game.stock[0])
-            .frame(maxWidth: 200)
-            .environmentObject(gameVm)
-            .environmentObject(NamespaceWrapper(namespace: namespace))
+        let card1 = Card(id: UUID(), rank: .ace, suit: .club)
+        var card2: Card {
+            var card = Card(id: UUID(), rank: .ace, suit: .club)
+            card.isFaceUp = true
+            return card
+        }
+        
+        HStack {
+            CardView(card1)
+                .frame(maxWidth: 100)
+            CardView(card2)
+                .frame(maxWidth: 100)
+        }
+        .environmentObject(gameVm)
+        .environmentObject(NamespaceWrapper(namespace: namespace))
     }
 }
