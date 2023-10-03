@@ -56,11 +56,14 @@ struct CardStackView: View {
 }
 
 struct CardStackView_Previews: PreviewProvider {
+    @Namespace static var namespace
+    
     static var previews: some View {
         CardStackView(
             [Card(id: UUID(), rank: .ace, suit: .club), Card(id: UUID(), rank: .ace, suit: .club)],
             cardWidth: 40,
             placeholderImage: "xmark"
         )
+        .environmentObject(NamespaceWrapper(namespace: namespace))
     }
 }

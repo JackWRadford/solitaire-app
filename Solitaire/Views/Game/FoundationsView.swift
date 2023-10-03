@@ -16,7 +16,7 @@ struct FoundationsView: View {
         HStack(spacing: TableauView.columnSpacing) {
             ForEach(Card.Suit.allCases) { suit in
                 let cards = gameVM.game.foundations[suit] ?? []
-                CardStackView(cards, cardWidth: cardWidth, placeholderImage: suit.image)
+                CardStackView(cards.suffix(3), cardWidth: cardWidth, placeholderImage: suit.image)
             }
         }
     }
