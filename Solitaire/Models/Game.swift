@@ -20,6 +20,7 @@ struct Game: Codable {
         .diamond: [],
         .heart: []
     ]
+    var secondsElapsed = 0
     
     var isComplete: Bool {
         foundationsAreComplete()

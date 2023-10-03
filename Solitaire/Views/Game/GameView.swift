@@ -35,6 +35,10 @@ struct GameView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     settingsBtn
                 }
+                ToolbarItem {
+                    Text(gameVM.timeElapsed)
+                        .font(Font.system(.body, design: .monospaced))
+                }
             }
             .alert("Complete!", isPresented: $showingCompleteAlert) {
                 Button("Play Again") { resetGame() }
@@ -68,6 +72,8 @@ struct GameView: View {
         switch newScenePhase {
         case .background, .inactive:
             gameVM.saveGame()
+        case .active:
+            gameVM.startTimer()
         default:
             break
         }
