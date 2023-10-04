@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct FoundationsView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @EnvironmentObject var gameVM: GameViewModel
     
     let cardWidth: CGFloat
-    var orientation: UIDeviceOrientation
     
     private let spacing = TableauView.columnSpacing
     
     var body: some View {
         Group {
-            if orientation.isLandscape {
+            if horizontalSizeClass == .regular {
                 VStack(spacing: spacing) { content }
             } else {
                 HStack(spacing: spacing) { content }
@@ -35,7 +35,7 @@ struct FoundationsView: View {
 
 struct FoundationsView_Previews: PreviewProvider {
     static var previews: some View {
-        FoundationsView(cardWidth: 40, orientation: .portrait)
+        FoundationsView(cardWidth: 40)
             .environmentObject(GameViewModel(Game()))
     }
 }

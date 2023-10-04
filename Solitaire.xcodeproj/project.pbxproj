@@ -18,7 +18,6 @@
 		DDA72A9B2AC0EFA800439A54 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA72A9A2AC0EFA800439A54 /* Card.swift */; };
 		DDD218B92ACB28CB0076E8EC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD218B82ACB28CB0076E8EC /* SettingsView.swift */; };
 		DDDC31C92ACC296B00FA4DDF /* GameArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDC31C82ACC296B00FA4DDF /* GameArea.swift */; };
-		DDDC31CC2ACC370500FA4DDF /* OrientationViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDC31CB2ACC370500FA4DDF /* OrientationViewModifier.swift */; };
 		DDE23FE62AC31AB300A625DE /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE23FE52AC31AB300A625DE /* GameViewModel.swift */; };
 		DDE23FEA2AC330F700A625DE /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE23FE92AC330F700A625DE /* CardView.swift */; };
 		DDE23FEE2AC3909400A625DE /* TableauView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE23FED2AC3909400A625DE /* TableauView.swift */; };
@@ -41,7 +40,6 @@
 		DDA72A9A2AC0EFA800439A54 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		DDD218B82ACB28CB0076E8EC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		DDDC31C82ACC296B00FA4DDF /* GameArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameArea.swift; sourceTree = "<group>"; };
-		DDDC31CB2ACC370500FA4DDF /* OrientationViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationViewModifier.swift; sourceTree = "<group>"; };
 		DDE23FE52AC31AB300A625DE /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		DDE23FE92AC330F700A625DE /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		DDE23FED2AC3909400A625DE /* TableauView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauView.swift; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 			children = (
 				DD4663202ACB2A840014C86C /* Enums */,
 				DDE23FE42AC31A9400A625DE /* ViewModels */,
-				DDDC31CA2ACC36D800FA4DDF /* ViewModifiers */,
 				DDA72A9C2AC1D8DA00439A54 /* Views */,
 				DDA72A992AC0EF9A00439A54 /* Models */,
 				DDA72A892AC0B63E00439A54 /* SolitaireApp.swift */,
@@ -150,14 +147,6 @@
 				DD46631E2ACB2A600014C86C /* EnumPicker.swift */,
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		DDDC31CA2ACC36D800FA4DDF /* ViewModifiers */ = {
-			isa = PBXGroup;
-			children = (
-				DDDC31CB2ACC370500FA4DDF /* OrientationViewModifier.swift */,
-			);
-			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 		DDE23FE42AC31A9400A625DE /* ViewModels */ = {
@@ -247,7 +236,6 @@
 				DDE23FF42AC5943B00A625DE /* CardStackView.swift in Sources */,
 				DDE23FF22AC5888700A625DE /* FoundationsView.swift in Sources */,
 				DDE23FE62AC31AB300A625DE /* GameViewModel.swift in Sources */,
-				DDDC31CC2ACC370500FA4DDF /* OrientationViewModifier.swift in Sources */,
 				DDD218B92ACB28CB0076E8EC /* SettingsView.swift in Sources */,
 				DDE23FEA2AC330F700A625DE /* CardView.swift in Sources */,
 				DD46631F2ACB2A600014C86C /* EnumPicker.swift in Sources */,

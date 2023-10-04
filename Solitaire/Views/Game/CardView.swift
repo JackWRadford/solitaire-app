@@ -24,7 +24,7 @@ struct CardView: View {
     }
     
     static let cornerRadius: CGFloat = 8
-    static let aspectRatio: CGFloat = 2/3
+    static let aspectRatio: CGFloat = 2/3    
     
     private struct Constants {
         static let lineWidth: CGFloat = 4

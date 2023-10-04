@@ -27,7 +27,6 @@ struct TalonView: View {
                     .frame(width: cardWidth)
             }
         }
-        .frame(maxWidth: .infinity)
     }
 }
 
